@@ -1,5 +1,12 @@
 # Compiled class file
 *.class
+.classpath
+.project
+.settings/
+target/
+*/target/**
+.settings
+.idea
 
 # Log file
 *.log
@@ -21,4 +28,3 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-replay_pid*

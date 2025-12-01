@@ -1,2 +1,7 @@
-# adventofcode2025
-The advent of code AOC - 2025
+# adventofcode
+
+Advent Of Code (AOC) contest - 2025
+
+https://adventofcode.com/
+
+Language: Java (openjdk23)
