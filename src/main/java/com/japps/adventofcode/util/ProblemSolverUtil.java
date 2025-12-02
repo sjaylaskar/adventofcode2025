@@ -29,6 +29,8 @@ public final class ProblemSolverUtil implements Loggable {
 
     public static final String COMMA = ",";
 
+    public static final String HYPHEN = "-";
+
     private static final LogUtil LOG = LogUtil.newInstance(ProblemSolverUtil.class);
 
     /**
