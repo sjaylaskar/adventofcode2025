@@ -10,7 +10,6 @@ import static com.japps.adventofcode.util.ProblemSolverUtil.*;
 import java.io.*;
 import java.util.*;
 
-import org.apache.commons.collections4.*;
 import org.apache.commons.lang3.*;
 
 import com.japps.adventofcode.util.*;

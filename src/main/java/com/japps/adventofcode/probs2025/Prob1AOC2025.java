@@ -6,7 +6,6 @@ package com.japps.adventofcode.probs2025;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.*;
 
 import com.japps.adventofcode.util.*;
 
