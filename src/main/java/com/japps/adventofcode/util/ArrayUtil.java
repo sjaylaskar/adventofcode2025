@@ -40,4 +40,8 @@ public final class ArrayUtil {
     public static String sOf(Object[] arr) {
         return Arrays.toString(arr);
     }
+
+    public static boolean isInRange(char[][] grid, int row, int col) {
+        return (row >= 0 && row < grid.length && col >= 0 && col < grid[row].length);
+    }
 }

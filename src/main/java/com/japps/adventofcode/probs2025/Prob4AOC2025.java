@@ -4,7 +4,12 @@
  */
 package com.japps.adventofcode.probs2025;
 
+import static java.util.stream.IntStream.*;
+import static com.japps.adventofcode.util.ArrayUtil.*;
+
 import java.io.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 import com.japps.adventofcode.util.*;
 
@@ -32,75 +37,44 @@ public final class Prob4AOC2025 extends AbstractSolvable implements Loggable {
 
     private void compute() throws IOException {
 		char[][] grid = linesAsArray();
-		countRemovalOnce(grid);
-		countRemovalOnEachRun(grid);
+		println(countRemovalOnce(grid));
+		println(countRemovalOnEachRun(grid));
 	}
 
-	private void countRemovalOnce(char[][] grid) {
-		int rolls = 0;
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[i].length; j++) {
-				char c = grid[i][j];
-				if (c == '@' && countAdjacentRolls(grid, i, j) < 4) {
-					++rolls;
-				}
-			}
-		}
-		println(rolls);
+	private long countRemovalOnce(char[][] grid) {
+		return IntStream.range(0, grid.length)
+				.flatMap(row -> IntStream.range(0, grid[row].length)
+				.filter(countRemovableRollPredicate(grid, row)))
+				.count();
 	}
 
-	private void countRemovalOnEachRun(char[][] grid) {
-		int rolls = 0;
+	private IntPredicate countRemovableRollPredicate(char[][] grid, int row) {
+		return col -> grid[row][col] == '@' && countAdjacentRolls(grid, row, col) < 4;
+	}
+
+	private long countRemovalOnEachRun(char[][] grid) {
+		long rolls = 0;
 		while (true) {
-			int runRolls = 0;
-			for (int i = 0; i < grid.length; i++) {
-				for (int j = 0; j < grid[i].length; j++) {
-					char c = grid[i][j];
-					if (c == '@' && countAdjacentRolls(grid, i, j) < 4) {
-						++runRolls;
-						grid[i][j] = '.';
-					}
-				}
-			}
-			if (runRolls > 0) {
-				rolls += runRolls;
-			} else {
+			long runRolls = IntStream.range(0, grid.length).flatMap(row -> IntStream.range(0, grid[row].length)
+							.filter(col -> grid[row][col] == '@' && countAdjacentRolls(grid, row, col) < 4).peek(col -> grid[row][col] = '.')).count();
+
+			if (runRolls == 0) {
 				break;
 			}
+			rolls += runRolls;
 		}
-		println(rolls);
+		return rolls;
 	}
 
 	private long countAdjacentRolls(char[][] grid, int i, int j) {
-		int  adjacentRolls = 0;
-		if (isInRange(grid, i - 1, j - 1) && grid[i - 1][j - 1] == '@') {
-			++adjacentRolls;
-		}
-		if (isInRange(grid, i - 1, j) && grid[i - 1][j] == '@') {
-			++adjacentRolls;
-		}
-		if (isInRange(grid, i - 1, j + 1) && grid[i - 1][j + 1] == '@') {
-			++adjacentRolls;
-		}
-		if (isInRange(grid, i, j - 1) && grid[i][j - 1] == '@') {
-			++adjacentRolls;
-		}
-		if (isInRange(grid, i, j + 1) && grid[i][j + 1] == '@') {
-			++adjacentRolls;
-		}
-		if (isInRange(grid, i + 1, j - 1) && grid[i + 1][j - 1] == '@') {
-			++adjacentRolls;
-		}
-		if (isInRange(grid, i + 1, j) && grid[i + 1][j] == '@') {
-			++adjacentRolls;
-		}
-		if (isInRange(grid, i + 1, j + 1) && grid[i + 1][j + 1] == '@') {
-			++adjacentRolls;
-		}
-		return adjacentRolls;
+		return rangeClosed(-1, 1).boxed().flatMap(rowCoord -> rangeClosed(-1, 1).mapToObj(colCoord -> new int[]{rowCoord, colCoord}))
+				.filter(rollFoundPredicate(grid, i, j))
+				.count();
 	}
 
-	private boolean isInRange(char[][] grid, int row, int col) {
-		return (row >= 0 && row < grid.length && col >= 0 && col < grid[row].length);
+	private static Predicate<int[]> rollFoundPredicate(char[][] grid, int i, int j) {
+		return directions -> !(directions[0] == 0 && directions[1] == 0)
+								  && isInRange(grid, i + directions[0], j + directions[1])
+								  && grid[i + directions[0]][j + directions[1]] == '@';
 	}
 }
