@@ -6,6 +6,8 @@
 package com.japps.adventofcode.util;
 
 
+import static java.lang.System.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -65,10 +67,10 @@ public final class LogUtil {
      * @param object the object
      */
     public void println(final Object object) {
-        System.out.println(object);
+        out.println(object);
     }
 
     public void println() {
-        System.out.println();
+        out.println();
     }
 }

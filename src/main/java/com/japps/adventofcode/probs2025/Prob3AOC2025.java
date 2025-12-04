@@ -36,6 +36,7 @@ public final class Prob3AOC2025 extends AbstractSolvable implements Loggable {
     private void compute() throws IOException {
 		List<String> lines = lines();
 		long joltageMax = 0;
+		long joltage2BatteryMax = 0;
 		long joltage12BatteryMax = 0;
 		for (String line : lines) {
 			List<Integer> batteries = Arrays.stream(line.split("")).mapToInt(Integer::valueOf).boxed().toList();
@@ -43,9 +44,13 @@ public final class Prob3AOC2025 extends AbstractSolvable implements Loggable {
 			List<Integer> secondMaxSubList = batteries.subList(maxIndex + 1, batteries.size());
 			int secondMaxIndex = findMaxNumIndex(secondMaxSubList, secondMaxSubList.size());
 			joltageMax += batteries.get(maxIndex) * 10 + secondMaxSubList.get(secondMaxIndex);
+			joltage2BatteryMax += maxNumOfGivenLengthInSequence(batteries, 2);
 			joltage12BatteryMax += maxNumOfGivenLengthInSequence(batteries, 12);
 		}
+		// Using algo: Find largest and second largest max num in sequence.
 		println(joltageMax);
+		// Using algo: Find largest number of given length in sequence.
+		println(joltage2BatteryMax);
 		println(joltage12BatteryMax);
 	}
 }
