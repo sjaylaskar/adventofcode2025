@@ -44,7 +44,8 @@ public final class Prob5AOC2025 extends AbstractSolvable implements Loggable {
             ranges.add(range);
         }
         println(idsInRanges(lines, ranges));
-        println(distinctElementsInRanges(ranges));
+        println(distinctElementsStreamed(ranges));
+        println(distinctElements(ranges));
     }
 
     private static long idsInRanges(List<String> lines, List<Range<Long>> ranges) {
