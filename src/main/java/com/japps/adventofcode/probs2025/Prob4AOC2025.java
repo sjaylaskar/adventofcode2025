@@ -36,7 +36,7 @@ public final class Prob4AOC2025 extends AbstractSolvable implements Loggable {
     }
 
     private void compute() throws IOException {
-		char[][] grid = linesAsArray();
+		char[][] grid = linesAsCharArray();
 		println(countRemovalOnce(grid));
 		println(countRemovalOnEachRun(grid));
 	}

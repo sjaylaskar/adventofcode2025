@@ -31,6 +31,14 @@ public final class ProblemSolverUtil implements Loggable {
 
     public static final String HYPHEN = "-";
 
+    public static final String SPACE = " ";
+
+    public static final char SPACE_CHAR = SPACE.charAt(0);
+
+    public static final String BLANK = "";
+
+    public static final String MULTISPACE_REGEX = "\\s+";
+
     private static final LogUtil LOG = LogUtil.newInstance(ProblemSolverUtil.class);
 
     /**
@@ -65,13 +73,13 @@ public final class ProblemSolverUtil implements Loggable {
         return SRC_MAIN_RESOURCES + clazz.getPackageName().replace(".", "/");
     }
 
-    public static char[][] linesAsArray(List<String> lines) {
+    public static char[][] linesAsCharArray(List<String> lines) {
         List<char[]> linesArrayList = lines.stream().map(String::toCharArray).toList();
         return linesArrayList.toArray(new char[0][0]);
     }
 
     public static int[][] linesAsIntArray(List<String> lines) {
-        return Stream.of(linesAsArray(lines)).map(ProblemSolverUtil::convertToIntArray).toList().toArray(new int[0][0]);
+        return Stream.of(linesAsCharArray(lines)).map(ProblemSolverUtil::convertToIntArray).toList().toArray(new int[0][0]);
     }
 
     private static int[] convertToIntArray(char[] line) {

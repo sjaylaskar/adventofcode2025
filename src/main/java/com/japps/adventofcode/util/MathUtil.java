@@ -49,4 +49,8 @@ public final class MathUtil {
     public static IntPredicate evenPredicate() {
         return oddPredicate().negate();
     }
+
+    public static BiFunction<Long, Long, Long> multiply() {
+        return (x, y) -> x * y;
+    }
 }

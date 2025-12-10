@@ -42,8 +42,8 @@ public interface Solvable {
         }
     }
 
-    default char[][] linesAsArray() throws IOException {
-        return ProblemSolverUtil.linesAsArray(lines());
+    default char[][] linesAsCharArray() throws IOException {
+        return ProblemSolverUtil.linesAsCharArray(lines());
     }
 
     default int[][] linesAsIntArray() throws IOException {

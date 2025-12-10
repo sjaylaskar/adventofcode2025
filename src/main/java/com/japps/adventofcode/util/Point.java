@@ -13,7 +13,7 @@ import java.util.List;
  * @author Subhajoy Laskar
  * @version 1.0
  */
-public class Point extends IntPair {
+public class Point extends LongPair {
 
     /**
      * Instantiates a new point.
@@ -21,12 +21,12 @@ public class Point extends IntPair {
      * @param x the x
      * @param y the y
      */
-    public Point(final int x, final int y) {
+    public Point(final long x, final long y) {
 
         super(x, y);
     }
 
-    public static Point of(final int x, final int y) {
+    public static Point of(final long x, final long y) {
     	return new Point(x, y);
     }
 
@@ -42,7 +42,7 @@ public class Point extends IntPair {
      * @return the long
      */
     public static long shortestPath(final Point point1, final Point point2) {
-        return Math.abs(point1.getX() - point2.getX()) + Math.abs(point1.getY() - point2.getY());
+        return Math.abs(point1.x() - point2.x()) + Math.abs(point1.y() - point2.y());
     }
 
     /**
@@ -61,4 +61,13 @@ public class Point extends IntPair {
         return sum;
     }
 
+    public long squaredDistance(Point otherPoint) {
+        long distX = x() - otherPoint.x();
+        long distY = y() - otherPoint.y();
+        return distX * distX + distY * distY;
+    }
+
+    public double distance(Point otherPoint) {
+        return Math.sqrt(squaredDistance(otherPoint));
+    }
 }
